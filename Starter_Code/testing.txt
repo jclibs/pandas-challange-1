@@ -1,0 +1,44 @@
+def client_totals(client_id, column):
+    client_df = df.loc[df['client_id'] == client_id, column]
+    return round(client_df.sum(), 2)
+
+for client_id in client_list:
+    print(f"{client_id}: ${client_totals(client_id, 'line_price')}")
+
+
+
+
+
+client_list = df['client_id'].unique() 
+totals_df = pd.DataFrame()
+
+
+for client in client_list:
+    client_total_qty = df.loc[client, 'qty'].sum()
+    client_toal_price = df.loc[client, 'line_price'].sum()
+    totals_df['client id'] = client
+    totals_df['order quantity'] = client_total_qty
+    totals_df['total price'] = client_toal_price
+
+totals_df.sort_values(by='order quantity')
+
+And this is how I tried making a loop to go through the id's but it just gave me errors
+
+
+
+
+
+clientID_grouped = df.groupby(['client_id']).sum()
+#clientID_grouped[['qty','line_price']].sum()
+clientID_grouped[['qty','line_price']]
+sorted = clientID_grouped.sort_values(by = 'qty', ascending = False)
+sorted.head()
+
+
+------------------------------------------------------------------------------------------------
+
+def scale_to_mil(row):
+    
+
+totals_df['shipping_price'] = totals_df.apply(scale_to_mil, axis = 1)
+totals_df
